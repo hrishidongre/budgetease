@@ -1,9 +1,12 @@
-import Image from "next/image";
+
+import SignUp from "./SignUp/page.jsx"
 
 export default function Home() {
   return (
    <div>
-    <h1>This is my new File</h1>
+  <h1> this is Home Page</h1>
+
+    
    </div>
   );
 }
