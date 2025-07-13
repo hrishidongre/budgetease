@@ -1,13 +1,9 @@
-
-import Link from "next/link.js";
-import SignUp from "./SignUp/page.jsx"
+"use client"
 import FeatureCards from "./Components/Feature.jsx";
 import Footer from "./Components/Footer.jsx";
 import Header from "./Components/Header.jsx";
 
 export default function Home() {
-  
-
   return (
    <div className="flex items-center flex-col">
 
@@ -33,8 +29,6 @@ export default function Home() {
       <div className="my-10">
         <FeatureCards/>
       </div>
-
-      
     </div>
 
 

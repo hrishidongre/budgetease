@@ -1,11 +1,13 @@
 'use client'
-
+import { useRouter } from 'next/navigation';
 import React, { useRef, useState } from 'react';
 import { supabase } from '../supabase';
 import Link from 'next/link';
 import { Mail, Lock, Eye, EyeOff, User } from 'lucide-react';
 
 export default function SignUp() {
+  const route = useRouter()
+
   const fullNameRef = useRef(null);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
@@ -41,6 +43,7 @@ export default function SignUp() {
       console.log("Problem:", error.message);
     } else {
       console.log("Success!", data);
+      route.push('/');
     }
     console.log('User:', data?.user);
     console.log('User Metadata:', data?.user?.user_metadata);

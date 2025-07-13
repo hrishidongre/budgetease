@@ -1,4 +1,9 @@
+"use client"
+import Link from 'next/link';
+import {useSession} from "@supabase/auth-helpers-react"
+
  const Header = () => {
+  const session = useSession()
   return (
     <header className="w-full bg-white">
       <div className="mx-auto flex items-center justify-between px-6 py-4">
@@ -13,21 +18,35 @@
         </div>
 
         {/* Navigation Menu */}
-        <nav className="hidden md:flex space-x-6  px-6 py-2 rounded-[10px] text-black font-semibold text-sm ">
-          <a href="#" className="hover:text-teal-700 transition duration-300">Home</a>
-          <a href="#" className="hover:text-teal-700 transition duration-300">About</a>
-          <a href="#" className="hover:text-teal-700 transition duration-300">Contact</a>
+        <nav className="space-x-6  px-6 py-2 rounded-[10px] text-black font-semibold text-sm ">
+          <a href="/" className="hover:text-teal-700 transition duration-300">Home</a>
+          <a href="/about" className="hover:text-teal-700 transition duration-300">About</a>
+          <a href="/Contact" className="hover:text-teal-700 transition duration-300">Contact</a>
         </nav>
 
         {/* Auth Buttons */}
-        <div className="flex items-center space-x-4">
-          <button className="hidden md:block px-5 py-2 text-sm font-medium text-black border border-teal-600 rounded-[10px] hover:bg-teal-50 transition">
-            Login
-          </button>
+          <div className="flex items-center space-x-4">
+      {session ? (
+        <Link href="/dashboard">
           <button className="px-5 py-2 text-sm font-medium bg-teal-600 text-white rounded-[10px] hover:bg-teal-700 transition duration-400">
-            Sign Up
+            Go to Dashboard
           </button>
-        </div>
+        </Link>
+      ) : (
+        <>
+          <Link href="/Login">
+            <button className="px-5 py-2 text-sm font-medium text-black border border-teal-600 rounded-[10px] hover:bg-teal-50 transition">
+              Login
+            </button>
+          </Link>
+          <Link href="/SignUp">
+            <button className="px-5 py-2 text-sm font-medium bg-teal-600 text-white rounded-[10px] hover:bg-teal-700 transition duration-400">
+              Sign Up
+            </button>
+          </Link>
+        </>
+      )}
+    </div>
 
       </div>
     </header>
