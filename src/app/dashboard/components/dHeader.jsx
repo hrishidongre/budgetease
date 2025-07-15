@@ -26,18 +26,18 @@ export default function dHeader(){
     }
 
     return(
-        <header className="flex justify-between items-center px-6 py-4 bg-black text-white shadow">
+        <header className="flex justify-between items-center px-6 py-4 bg-slate-100  shadow">
             {/* Left: Welcome and Date */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4">
                 <p className="text-lg font-medium">
                 Welcome, {user?.user_metadata?.full_name || 'User'}
                 </p>
-                <span className="text-sm text-white">{date}</span>
+                <span className="text-sm">{date}</span>
             </div>
 
             {/* Right: Logout */}
             <div className="relative group cursor-pointer" onClick={handleLogout}>
-                <LogOut className="w-4 h-4 text-white  hover:text-red-500 transition-colors" />
+                <LogOut className="w-4 h-4   hover:text-red-500 transition-colors" />
                <span className="absolute left-1/2 -translate-x-1/2 mt-2 px-2 py-0.5 text-[10px] whitespace-nowrap rounded bg-gray-800 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 z-10">
                Log out
                </span>
