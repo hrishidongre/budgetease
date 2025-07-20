@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Twitter, Linkedin } from 'lucide-react';
+import {  Instagram, Linkedin } from 'lucide-react';
 
 
 
@@ -26,7 +26,6 @@ const Footer = () => {
             <li><a href="#" className="hover:underline">Home</a></li>
             <li><a href="#" className="hover:underline">Features</a></li>
             <li><a href="#" className="hover:underline">About</a></li>
-            <li><a href="#" className="hover:underline">Dashboard</a></li>
           </ul>
         </div>
 
@@ -34,8 +33,8 @@ const Footer = () => {
         <div>
           <h3 className="text-sm font-semibold mb-2">Contact</h3>
           <ul className="text-xs space-y-1">
-            <li>Email: support@budgetease.com</li>
-            <li>Phone: +91 12345 67890</li>
+            <li>Email: competitivehridon2024@gmail.com</li>
+            <li>Phone: +91 91314-XXXXX</li>
             <li>Location: India</li>
           </ul>
         </div>
@@ -46,12 +45,6 @@ const Footer = () => {
         <div>
           <h3 className="text-sm font-semibold mb-2">Follow Us</h3>
           <div className="flex gap-4">
-            <a href="#" aria-label="Facebook">
-                <Facebook className="w-5 h-5 text-white hover:text-blue-500" />
-            </a>
-            <a href="#" aria-label="Twitter">
-                <Twitter className="w-5 h-5 text-white hover:text-sky-400" />
-            </a>
             <a href="#" aria-label="Instagram">
                 <Instagram className="w-5 h-5 text-white hover:text-pink-500" />
             </a>

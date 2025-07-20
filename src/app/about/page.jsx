@@ -1,9 +1,15 @@
+"use client"
 import Feature from "../Components/Feature";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import { Users, Target} from "lucide-react";
+import {useSession} from "@supabase/auth-helpers-react"
+import Link from "next/link";
 
 export default function About() {
+  const session = useSession()
+  const linkHref = session ? '/dashboard' : '/SignUp'
+  const buttonText = session ? 'Go to Dashboard' : 'Start Your Journey'
 
   return (
     <div >
@@ -48,11 +54,7 @@ export default function About() {
               </p>
             </div>
             <div>
-              <img 
-                src="https://plus.unsplash.com/premium_vector-1682300920827-ff469ef7e8fb?q=80&w=3178&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
-                alt="Team collaboration" 
-                className="rounded-2xl shadow-2xl"
-              />
+              <img src="https://plus.unsplash.com/premium_vector-1682300920827-ff469ef7e8fb?q=80&w=3178&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Team collaboration" className="rounded-2xl shadow-2xl" />
             </div>
           </div>
         </div>
@@ -75,19 +77,20 @@ export default function About() {
       </section>
       
       {/*Previous section*/}
-       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-600 to-teal-600">
+       <section className="py-15 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-600 to-teal-600">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-white mb-6">
             Ready to Take Control of Your Finances?
           </h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto font-medium">
             Join thousands of users who have transformed their financial lives with BudgetEase.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button  className="bg-white text-black hover:bg-gray-100 p-2 rounded-[10px] font-semibold">
-              Start Your Journey
-            </button>
-          </div>
+          <Link href={linkHref}>
+          <button  className="bg-white text-black hover:bg-gray-200 p-2 rounded-[10px] font-semibold">
+           {buttonText}
+          </button>
+          </Link>
+          
         </div>
       </section>
 

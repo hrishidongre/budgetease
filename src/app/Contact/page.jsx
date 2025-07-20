@@ -90,7 +90,7 @@ export default function Contact() {
         </form>
 
         <div className="mt-10 text-center text-sm text-gray-600">
-          Or reach us at <a href="mailto:support@budgetease.com" className="text-teal-700 underline">support@budgetease.com</a>
+          Or reach us at <a href="mailto:competitivehridon2024@gmail.com" className="text-blue-800 underline">competitivehridon2024@gmail.com</a>
         </div>
       </div>
     </section>

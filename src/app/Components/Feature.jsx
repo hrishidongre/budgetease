@@ -17,7 +17,7 @@ const features = [
   ]
 
 const FeatureCard = ({icon,title,description})=>(
-    <div className="flex flex-col p-6 bg-white rounded-2xl shadow-md hover:scale-105 transition-transform max-w-sm">
+    <div className="flex flex-col p-6  rounded-2xl shadow-lg hover:scale-[1.05] hover:shadow-2xl transition-transform duration-300 max-w-sm bg-white/90 backdrop-blur-md border border-white/30">
     <img src={icon} alt={title} className="w-16 h-16 mb-4" />
     <h3 className="text-xl font-semibold mb-2">{title}</h3>
     <p className="text-gray-600">{description}</p>
@@ -29,10 +29,13 @@ const FeatureCard = ({icon,title,description})=>(
 
 export default function FeatureCards() {
   return (
-    <div className="grid gap-10 sm:grid-cols-1 md:grid-cols-3 justify-items-center">
+       <div className="grid gap-10 sm:grid-cols-1 md:grid-cols-3 justify-items-center">
       {features.map((feature, index) => (
         <FeatureCard key={index} {...feature} />
       ))}
     </div>
+
+
+   
   );
 }

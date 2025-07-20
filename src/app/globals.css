@@ -11,3 +11,6 @@
 .font-Antipasto {
     font-family: "Antipasto";
 }
+html{
+    scroll-behavior:smooth
+}
