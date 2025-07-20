@@ -19,16 +19,16 @@ import {useSession} from "@supabase/auth-helpers-react"
 
         {/* Navigation Menu */}
         <nav className="space-x-6  px-6 py-2 rounded-[10px] text-black font-semibold text-sm ">
-          <a href="/" className="hover:text-teal-700 transition duration-300">Home</a>
-          <a href="/about" className="hover:text-teal-700 transition duration-300">About</a>
-          <a href="/Contact" className="hover:text-teal-700 transition duration-300">Contact</a>
+          <a href="/" className="hover:text-teal-700 hover:underline decoration-teal-700 underline-offset-10 decoration-2 transition duration-300">Home</a>
+          <a href="/about" className="hover:text-teal-700 hover:underline decoration-teal-700 underline-offset-10 decoration-2 transition duration-300">About</a>
+          <a href="/Contact" className="hover:text-teal-700  hover:underline decoration-teal-700 underline-offset-10 decoration-2 transition duration-300">Contact</a>
         </nav>
 
         {/* Auth Buttons */}
           <div className="flex items-center space-x-4">
       {session ? (
         <Link href="/dashboard">
-          <button className="px-5 py-2 text-sm font-medium bg-teal-600 text-white rounded-[10px] hover:bg-teal-700 transition duration-400">
+          <button className="px-5 py-2 text-sm font-medium font-medium bg-teal-600 text-white rounded-[10px] hover:bg-teal-700 transition duration-400">
             Go to Dashboard
           </button>
         </Link>
