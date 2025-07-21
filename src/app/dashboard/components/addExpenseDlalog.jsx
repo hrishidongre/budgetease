@@ -1,6 +1,8 @@
+"use client"
 import { X, Plus } from "lucide-react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import ExpenseDialogBody from "./addExpenseForm";
+
 
 // Add this prop: trigger
 export default function AddExpenseDialog({ trigger }) {

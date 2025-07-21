@@ -3,7 +3,8 @@
 import React, { useState } from 'react';
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X, Plus } from "lucide-react";
-
+import { useSession } from '@supabase/auth-helpers-react';
+import { supabase } from '@/app/supabase';
 import Input from '../uiElements/input';
 import Label from '../uiElements/label';
 import Select from '../uiElements/Select';
@@ -25,8 +26,9 @@ export default function AddBudgetDialog() {
   const [open, setOpen] = useState(false);
   const [category, setCategory] = useState('');
   const [amount, setAmount] = useState('');
+  const session = useSession();
 
-  const handleAddBudget = (e) => {
+  const handleAddBudget = async (e) => {
     e.preventDefault();
 
     if (!category || !amount) {
@@ -34,7 +36,32 @@ export default function AddBudgetDialog() {
       return;
     }
 
+    const userId = session?.user?.id;
+    if (!userId) {
+      alert("User not authenticated");
+      return;
+    }
+
+    const { data, error } = await supabase.from("budget").insert([
+      {
+        category_name: category,
+        amount: parseFloat(amount),
+        user_id: userId,
+      },
+    ]);
+
+    console.log({ category, amount, userId });
+
+
+    if (error) {
+      console.log("Error adding budget:", error.message);
+      alert("Failed to add budget. Try again.");
+      return;
+    }
+
     console.log("Budget Added:", { category, amount });
+
+    // Reset fields and close dialog
     setCategory('');
     setAmount('');
     setOpen(false);
@@ -47,8 +74,6 @@ export default function AddBudgetDialog() {
         <button className="flex items-center px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition m-5">
           <Plus className="w-4 h-4 mr-2" />Add Budget
         </button>
-        
-
       </DialogPrimitive.Trigger>
 
       {/* Modal Content */}

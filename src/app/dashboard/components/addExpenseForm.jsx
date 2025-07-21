@@ -2,6 +2,9 @@
 import Input from "../uiElements/input";
 import Label from "../uiElements/label";
 import Select from "../uiElements/Select";
+import { useSession } from "@supabase/auth-helpers-react";
+import { supabase } from "@/app/supabase";
+import { useState } from "react";
 
 const categoryOptions = [
   { name: "Food & Dining", icon: "🍽️" },
@@ -16,9 +19,49 @@ const categoryOptions = [
   { name: "Other", icon: "📋" },
 ];
 
-export default function ExpenseDialogBody({ category, setCategory }) {
+export default function ExpenseDialogBody() {
+  const [amount, setAmount] = useState("");
+  const [description, setDescription] = useState("");
+  const [category,setCategory] = useState("")
+  const session = useSession()
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    const userId = session?.user?.id;
+
+
+    if (!category || !amount) {
+    alert("Please fill in all required fields.");
+    return;
+    }
+
+    const { data,error } = await supabase.from("expense").insert([
+    {
+      category_name: category,
+      amount: parseFloat(amount),
+      description: description,
+      user_id: userId,
+    },]);
+
+    if (error) {
+    console.log("Failed to add expense:", error.message);
+    alert("Failed to add expense. Try again.");
+    } 
+    else {
+    console.log("Expense added!");
+    }
+
+    setCategory('');
+    setAmount('');
+    setDescription('');
+  
+  }
+ 
+
   return (
-    <form className="space-y-4">
+    <form className="space-y-4" onSubmit={handleSubmit}>
       <div>
         <Label htmlFor="category">Category</Label>
         <Select
@@ -31,7 +74,7 @@ export default function ExpenseDialogBody({ category, setCategory }) {
 
       <div>
         <Label htmlFor="amount">Amount</Label>
-        <Input type="number" id="amount" placeholder="0.00" />
+        <Input type="number" id="amount" placeholder="0.00"  value={amount} onChange={(e) => setAmount(e.target.value)}/>
       </div>
 
       <div>
@@ -41,6 +84,8 @@ export default function ExpenseDialogBody({ category, setCategory }) {
           placeholder="What was this expense for?"
           className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           rows={3}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
         />
       </div>
 
