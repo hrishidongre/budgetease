@@ -51,14 +51,16 @@ export default function Charts({ data }) {
             </PieChart>
           ) : (
             <BarChart data={data} barCategoryGap={40}>
-              <XAxis dataKey="name" tick={{ fontSize: 12, fill: '#111' }} />
-              <YAxis tick={{ fontSize: 12, fill: '#111' }} />
-              <Tooltip />
-              <Bar dataKey="total" fill="#E5E7EB" barSize={40} radius={[4, 4, 0, 0]} />
-              <Bar dataKey="spent" fill="#3B82F6" barSize={40} radius={[4, 4, 0, 0]}>
-                <LabelList dataKey="spent" position="top" fill="#111" fontSize={12} />
-              </Bar>
-            </BarChart>
+  <XAxis dataKey="name" tick={{ fontSize: 12, fill: '#111' }} />
+  <YAxis tick={{ fontSize: 12, fill: '#111' }} />
+  <Tooltip />
+  <Bar dataKey="total" fill="#3B82F6" barSize={40} radius={[4, 4, 0, 0]}>
+    <LabelList dataKey="total" position="top" fill="#111" fontSize={12} />
+  </Bar>
+  <Bar dataKey="spent" fill="#f84b4bff" barSize={40} radius={[4, 4, 0, 0]}>
+    <LabelList dataKey="spent" position="top" fill="#111" fontSize={12} />
+  </Bar>
+</BarChart>
           )}
         </ResponsiveContainer>
       </div>

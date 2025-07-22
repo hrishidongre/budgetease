@@ -2,12 +2,15 @@
 import { X, Plus } from "lucide-react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import ExpenseDialogBody from "./addExpenseForm";
+import { useState } from "react";
 
 
 // Add this prop: trigger
-export default function AddExpenseDialog({ trigger }) {
+export default function AddExpenseDialog({ trigger , onExpenseAdded }) {
+  const [open, setOpen] = useState(false); 
+  
   return (
-    <DialogPrimitive.Root>
+    <DialogPrimitive.Root open={open} onOpenChange={setOpen}>
       {/* Use the passed trigger if available */}
       <DialogPrimitive.Trigger asChild>
         {trigger ? trigger : (
@@ -32,7 +35,7 @@ export default function AddExpenseDialog({ trigger }) {
             Add Expense
           </DialogPrimitive.Title>
 
-          <ExpenseDialogBody />
+          <ExpenseDialogBody  onSuccess={onExpenseAdded} closeDialog={() => setOpen(false)}/>
         </DialogPrimitive.Content>
       </DialogPrimitive.Portal>
     </DialogPrimitive.Root>

@@ -299,21 +299,105 @@
 //   );
 // }
 
-'use client'; // if using Next.js app directory (optional based on context)
+'use client';
 
-import DHeader from './components/dHeader';
-import AddBudgetDialog from "./components/addBudgetDialog";
-import AddExpenseDialog from './components/addExpenseDlalog';
-import StatsCard from './uiElements/StateCard';
-import BudgetCard from './components/BudgetCard';
-import Charts from './components/charts';
-import RecentTransaction from './components/recentTransaction';
-import { Wallet, TrendingUp, TrendingDown } from 'lucide-react';
+import DHeader from './components/dHeader'
+import AddBudgetDialog from "./components/addBudgetDialog"
+import AddExpenseDialog from './components/addExpenseDlalog'
+import StatsCard from './uiElements/StateCard'
+import BudgetCard from './components/BudgetCard'
+import Charts from './components/charts'
+import RecentTransaction from './components/recentTransaction'
+import { Wallet, TrendingUp, TrendingDown } from 'lucide-react'
+import { useEffect, useState } from "react";
+import { supabase } from "@/app/supabase";
+import { useSession } from "@supabase/auth-helpers-react"
 
 export default function Page() {
-  const totalBudget = 5000;
-  const totalSpent = 3250;
-  const totalRemaining = totalBudget - totalSpent;
+  const session = useSession();
+  const [chartData, setChartData] = useState([]);
+  const userId = session?.user?.id;
+
+  const [totals, setTotals] = useState({
+    totalBudget: 0,
+    totalSpent: 0,
+    remaining: 0,
+  });
+
+  const fetchTotals = async () => {
+  const { data: budgetData, error: budgetError } = await supabase
+    .from("budget")
+    .select("amount")
+    .eq("user_id", userId);
+
+  const { data: expenseData, error: expenseError } = await supabase
+    .from("expense")
+    .select("amount")
+    .eq("user_id", userId);
+
+  if (budgetError || expenseError) {
+    console.log("Error fetching totals", budgetError || expenseError);
+    return;
+  }
+
+
+  const totalBudget = budgetData.reduce((sum, b) => sum + Number(b.amount), 0);
+  const totalSpent = expenseData.reduce((sum, e) => sum + Number(e.amount), 0);
+  const remaining = totalBudget - totalSpent;
+
+  setTotals({ totalBudget, totalSpent, remaining });
+  };
+
+  // ✅ New: fetch chart data for category-wise spending
+  const fetchChartData = async () => {
+    const { data: budgetData, error: budgetError } = await supabase
+      .from("budget")
+      .select("category_name, amount")
+      .eq("user_id", userId);
+
+    const { data: expenseData, error: expenseError } = await supabase
+      .from("expense")
+      .select("category_name, amount")
+      .eq("user_id", userId);
+
+    if (budgetError || expenseError) {
+      console.log("Error fetching chart data", budgetError || expenseError);
+      return;
+    }
+
+    const budgetMap = {};
+    for (let b of budgetData) {
+      budgetMap[b.category_name] = (budgetMap[b.category_name] || 0) + b.amount;
+    }
+
+    const expenseMap = {};
+    for (let e of expenseData) {
+      expenseMap[e.category_name] = (expenseMap[e.category_name] || 0) + e.amount;
+    }
+
+    const categories = new Set([
+      ...Object.keys(budgetMap),
+      ...Object.keys(expenseMap),
+    ]);
+
+    const merged = Array.from(categories).map((category) => ({
+      name: category,
+      total: budgetMap[category] || 0,
+      spent: expenseMap[category] || 0,
+    }));
+
+    setChartData(merged);
+  };
+
+  useEffect(() => {
+    if (userId) {
+      fetchTotals();
+      fetchChartData(); 
+    }
+  }, [userId]);
+
+
+
 
   const sampleTransactions = [
     { title: "Lunch at cafe", category: "Food & Dining", amount: 45.5, date: "2025-01-10" },
@@ -334,19 +418,24 @@ export default function Page() {
       {/* Header Title + Buttons */}
       <div className="max-w-6xl mx-auto px-4 pt-8">
         <div className="flex flex-col md:flex-row justify-between gap-6 mb-8">
-          {/* Left: Title and Buttons */}
           <div className="flex-1">
             <h1 className="text-4xl font-bold text-gray-900 leading-tight mb-4">
               Your
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-600"> Finances, Organized.</span>
             </h1>
             <div className="flex gap-3">
-              <AddBudgetDialog />
-              <AddExpenseDialog />
+              <AddBudgetDialog  onBudgetAdded={() => {
+
+                fetchTotals();
+                fetchChartData(); // ✅ update chart
+              }}/>
+              <AddExpenseDialog onExpenseAdded={() => {
+                fetchTotals();
+                fetchChartData();
+
+              }}/>
             </div>
           </div>
-
-          {/* Right: Recent Transactions */}
           <div className="w-full md:w-[300px]">
             <RecentTransaction transactions={sampleTransactions} />
           </div>
@@ -359,7 +448,7 @@ export default function Page() {
             value={new Intl.NumberFormat("en-IN", {
               style: "currency",
               currency: "INR",
-            }).format(totalBudget)}
+            }).format(totals.totalBudget)}
             icon={Wallet}
             color="text-blue-600"
             trend="Monthly allocation"
@@ -369,20 +458,20 @@ export default function Page() {
             value={new Intl.NumberFormat("en-IN", {
               style: "currency",
               currency: "INR",
-            }).format(totalSpent.toFixed(2))}
+            }).format(totals.totalSpent.toFixed(2))}
             icon={TrendingUp}
             color="text-red-600"
-            trend={`${((totalSpent / totalBudget) * 100).toFixed(1)}% of budget`}
+            trend={`${((totals.totalSpent / totals.totalBudget) * 100 || 0).toFixed(1)}% of budget`}
           />
           <StatsCard
             title="Remaining"
             value={new Intl.NumberFormat("en-IN", {
               style: "currency",
               currency: "INR",
-            }).format(totalRemaining.toFixed(2))}
-            icon={totalRemaining >= 0 ? TrendingDown : TrendingUp}
-            color={totalRemaining >= 0 ? "text-green-600" : "text-red-600"}
-            trend={totalRemaining >= 0 ? "Under budget" : "Over budget"}
+            }).format(totals.remaining.toFixed(2))}
+            icon={totals.remaining >= 0 ? TrendingDown : TrendingUp}
+            color={totals.remaining >= 0 ? "text-green-600" : "text-red-600"}
+            trend={totals.remaining >= 0 ? "Under budget" : "Over budget"}
           />
         </div>
       </div>
@@ -395,7 +484,7 @@ export default function Page() {
           <BudgetCard category="Transportation" budget={200} spent={150} icon="🚗" />
         </div>
         <div className="w-2/3">
-          <Charts data={demoData} />
+          <Charts data={chartData} />
         </div>
       </div>
     </div>

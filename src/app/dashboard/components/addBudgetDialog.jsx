@@ -22,7 +22,7 @@ const categoryOptions = [
   { name: "Other", icon: "📋" },
 ];
 
-export default function AddBudgetDialog() {
+export default function AddBudgetDialog({ onBudgetAdded }) {
   const [open, setOpen] = useState(false);
   const [category, setCategory] = useState('');
   const [amount, setAmount] = useState('');
@@ -60,6 +60,9 @@ export default function AddBudgetDialog() {
     }
 
     console.log("Budget Added:", { category, amount });
+
+    onBudgetAdded?.();
+
 
     // Reset fields and close dialog
     setCategory('');

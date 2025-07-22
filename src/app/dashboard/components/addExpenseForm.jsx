@@ -1,10 +1,11 @@
-// components/ExpenseDialogBody.jsx
+"use client"
 import Input from "../uiElements/input";
 import Label from "../uiElements/label";
 import Select from "../uiElements/Select";
 import { useSession } from "@supabase/auth-helpers-react";
 import { supabase } from "@/app/supabase";
 import { useState } from "react";
+import * as DialogPrimitive from "@radix-ui/react-dialog"; // 👈 make sure this import exists
 
 const categoryOptions = [
   { name: "Food & Dining", icon: "🍽️" },
@@ -19,7 +20,7 @@ const categoryOptions = [
   { name: "Other", icon: "📋" },
 ];
 
-export default function ExpenseDialogBody() {
+export default function ExpenseDialogBody({ onSuccess,closeDialog }) {
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
   const [category,setCategory] = useState("")
@@ -51,6 +52,8 @@ export default function ExpenseDialogBody() {
     } 
     else {
     console.log("Expense added!");
+    onSuccess?.();
+    closeDialog?.() // 👈 triggers parent to refresh totals
     }
 
     setCategory('');
@@ -78,7 +81,7 @@ export default function ExpenseDialogBody() {
       </div>
 
       <div>
-        <Label htmlFor="description">Description (Optional)</Label>
+        <Label htmlFor="description">Description</Label>
         <textarea
           id="description"
           placeholder="What was this expense for?"
@@ -89,20 +92,23 @@ export default function ExpenseDialogBody() {
         />
       </div>
 
-      <div className="flex justify-end gap-2 pt-4">
-        <button
-          type="button"
-          className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-100 transition"
-        >
-          Cancel
-        </button>
-        <button
-          type="submit"
-          className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
-        >
-          Add Expense
-        </button>
-      </div>
+    <div className="flex justify-end gap-2 pt-4">
+  <DialogPrimitive.Close asChild>
+    <button
+      type="button"
+      className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-100 transition"
+    >
+      Cancel
+    </button>
+  </DialogPrimitive.Close>
+
+  <button
+    type="submit"
+    className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
+  >
+    Add Expense
+  </button>
+</div>
     </form>
   );
 }
