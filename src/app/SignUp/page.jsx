@@ -67,10 +67,10 @@ export default function SignUp() {
         <form name="Create-Account" onSubmit={handleSubmit} className="flex flex-col gap-4">
           {/* Full Name */}
           <div>
-            <label htmlFor="full-name" className="block mb-1 text-sm font-medium text-gray-700">
+            <label htmlFor="full-name" className="block mb-1 text-sm font-medium text-gray-800">
               Full Name
             </label>
-            <div className="flex items-center border rounded-md px-3 py-2 bg-white">
+            <div className="flex items-center border rounded-md px-3 py-2 bg-gray-100 border-gray-100">
               <User className="h-4 w-4 text-gray-400 mr-2" />
               <input
                 type="text"
@@ -84,10 +84,10 @@ export default function SignUp() {
 
           {/* Email */}
           <div>
-            <label htmlFor="email" className="block mb-1 text-sm font-medium text-gray-700">
+            <label htmlFor="email" className="block mb-1 text-sm font-medium text-gray-800">
               Email
             </label>
-            <div className="flex items-center border rounded-md px-3 py-2 bg-white">
+            <div className="flex items-center border rounded-md px-3 py-2 bg-gray-100 border-gray-100">
               <Mail className="h-4 w-4 text-gray-400 mr-2" />
               <input
                 type="email"
@@ -101,10 +101,10 @@ export default function SignUp() {
 
           {/* Password */}
           <div>
-            <label htmlFor="password" className="block mb-1 text-sm font-medium text-gray-700">
+            <label htmlFor="password" className="block mb-1 text-sm font-medium text-gray-800">
               Password
             </label>
-            <div className="flex items-center border rounded-md px-3 py-2 bg-white">
+            <div className="flex items-center border rounded-md px-3 py-2 bg-gray-100 border-gray-100">
               <Lock className="h-4 w-4 text-gray-400 mr-2" />
               <input
                 type={showPassword ? 'text' : 'password'}
@@ -125,10 +125,10 @@ export default function SignUp() {
 
           {/* Confirm Password */}
           <div>
-            <label htmlFor="confirm-password" className="block mb-1 text-sm font-medium text-gray-700">
+            <label htmlFor="confirm-password" className="block mb-1 text-sm font-medium text-gray-800">
               Confirm Password
             </label>
-            <div className="flex items-center border rounded-md px-3 py-2 bg-white">
+            <div className="flex items-center border rounded-md px-3 py-2 bg-gray-100 border-gray-100">
               <Lock className="h-4 w-4 text-gray-400 mr-2" />
               <input
                 type={showConfirm ? 'text' : 'password'}

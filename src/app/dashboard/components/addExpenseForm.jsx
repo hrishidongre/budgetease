@@ -5,7 +5,7 @@ import Select from "../uiElements/Select";
 import { useSession } from "@supabase/auth-helpers-react";
 import { supabase } from "@/app/supabase";
 import { useState } from "react";
-import * as DialogPrimitive from "@radix-ui/react-dialog"; // 👈 make sure this import exists
+import * as DialogPrimitive from "@radix-ui/react-dialog"; 
 
 const categoryOptions = [
   { name: "Food & Dining", icon: "🍽️" },
@@ -53,7 +53,7 @@ export default function ExpenseDialogBody({ onSuccess,closeDialog }) {
     else {
     console.log("Expense added!");
     onSuccess?.();
-    closeDialog?.() // 👈 triggers parent to refresh totals
+    closeDialog?.() //refreshes totals
     }
 
     setCategory('');
@@ -68,6 +68,7 @@ export default function ExpenseDialogBody({ onSuccess,closeDialog }) {
       <div>
         <Label htmlFor="category">Category</Label>
         <Select
+          className="border-gray-300"
           id="category"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
@@ -77,7 +78,7 @@ export default function ExpenseDialogBody({ onSuccess,closeDialog }) {
 
       <div>
         <Label htmlFor="amount">Amount</Label>
-        <Input type="number" id="amount" placeholder="0.00"  value={amount} onChange={(e) => setAmount(e.target.value)}/>
+        <Input className="bg-gray-100 border-gray-100" type="number" id="amount" placeholder="0.00"  value={amount} onChange={(e) => setAmount(e.target.value)}/>
       </div>
 
       <div>
@@ -85,7 +86,7 @@ export default function ExpenseDialogBody({ onSuccess,closeDialog }) {
         <textarea
           id="description"
           placeholder="What was this expense for?"
-          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-100 border-gray-100"
           rows={3}
           value={description}
           onChange={(e) => setDescription(e.target.value)}
@@ -93,22 +94,22 @@ export default function ExpenseDialogBody({ onSuccess,closeDialog }) {
       </div>
 
     <div className="flex justify-end gap-2 pt-4">
-  <DialogPrimitive.Close asChild>
-    <button
-      type="button"
-      className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-100 transition"
-    >
-      Cancel
-    </button>
-  </DialogPrimitive.Close>
+      <DialogPrimitive.Close asChild>
+        <button
+          type="button"
+          className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-100 transition"
+        >
+          Cancel
+        </button>
+      </DialogPrimitive.Close>
 
-  <button
-    type="submit"
-    className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
-  >
-    Add Expense
-  </button>
-</div>
-    </form>
+      <button
+        type="submit"
+        className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
+      >
+        Add Expense
+      </button>
+    </div>
+  </form>
   );
 }

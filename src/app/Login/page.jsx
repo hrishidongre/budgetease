@@ -1,5 +1,4 @@
 'use client'
-
 import React, { useRef, useEffect, useState } from 'react'
 import { supabase } from '../supabase'
 import { useRouter } from 'next/navigation'
@@ -28,12 +27,11 @@ export default function Login() {
     const email = emailRef.current.value
     const password = passwordRef.current.value
 
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password })
+    const { error } = await supabase.auth.signInWithPassword({ email, password })
 
     if (error) {
-      console.log("Can't log in:", error.message)
+      alert("Login failed: " + error.message)
     } else {
-      console.log('You are logged in')
       router.push('/dashboard')
     }
   }
@@ -49,10 +47,10 @@ export default function Login() {
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           {/* Email */}
           <div>
-            <label htmlFor="email" className="block mb-1 text-sm font-medium text-gray-700">
+            <label htmlFor="email" className="block mb-1 text-sm font-medium text-gray-800">
               Email
             </label>
-            <div className="flex items-center border rounded-md px-3 py-2 bg-white">
+            <div className="flex items-center border rounded-md px-3 py-2 bg-gray-100 border-gray-100">
               <Mail className="h-4 w-4 text-gray-400 mr-2" />
               <input
                 type="email"
@@ -66,10 +64,10 @@ export default function Login() {
 
           {/* Password */}
           <div>
-            <label htmlFor="password" className="block mb-1 text-sm font-medium text-gray-700">
+            <label htmlFor="password" className="block mb-1 text-sm font-medium text-gray-800">
               Password
             </label>
-            <div className="flex items-center border rounded-md px-3 py-2 bg-white">
+            <div className="flex items-center border rounded-md px-3 py-2 bg-gray-100 border-gray-100">
               <Lock className="h-4 w-4 text-gray-400 mr-2" />
               <input
                 type={showPassword ? 'text' : 'password'}
@@ -92,12 +90,6 @@ export default function Login() {
             </div>
           </div>
 
-          {/* Forgot password */}
-          <div className="text-right">
-            <Link href="/forgot-password" className="text-sm text-blue-600 hover:underline">
-              Forgot your password?
-            </Link>
-          </div>
 
           {/* Sign In Button */}
           <button

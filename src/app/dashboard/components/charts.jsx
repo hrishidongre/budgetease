@@ -2,7 +2,12 @@ import { useState } from 'react';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, LabelList } from 'recharts';
 
 export default function Charts({ data }) {
-  const [activeTab, setActiveTab] = useState('pie');
+  const [activeTab, setActiveTab] = useState('bar');
+
+  const COLORS = [
+    "#0088FE", "#00C49F", "#FFA500", "#FF8042", "#FF69B4",
+    "#A28BFF", "#FFBB28", "#82ca9d", "#8884d8", "#d0ed57"
+  ];
 
   return (
     <div className="max-w-4xl mx-auto bg-[#f9fbfe] p-6 rounded-xl shadow-md">
@@ -44,7 +49,7 @@ export default function Charts({ data }) {
                 {data.map((_, index) => (
                   <Cell
                     key={`cell-${index}`}
-                    fill={['#0088FE', '#00C49F', '#FFA500'][index % 3]}
+                      fill={COLORS[index % COLORS.length]}
                   />
                 ))}
               </Pie>

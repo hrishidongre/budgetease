@@ -102,6 +102,7 @@ export default function AddBudgetDialog({ onBudgetAdded }) {
             <div>
               <Label htmlFor="category">Category</Label>
               <Select
+                className='border-gray-300'
                 id="category"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
@@ -113,6 +114,7 @@ export default function AddBudgetDialog({ onBudgetAdded }) {
             <div>
               <Label htmlFor="amount">Budget Amount</Label>
               <Input
+                className='bg-gray-100 border-gray-100'
                 id="amount"
                 type="number"
                 placeholder="0.00"

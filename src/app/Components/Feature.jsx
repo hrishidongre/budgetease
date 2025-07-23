@@ -18,14 +18,11 @@ const features = [
 
 const FeatureCard = ({icon,title,description})=>(
     <div className="flex flex-col p-6  rounded-2xl shadow-lg hover:scale-[1.05] hover:shadow-2xl transition-transform duration-300 max-w-sm bg-white/90 backdrop-blur-md border border-white/30">
-    <img src={icon} alt={title} className="w-16 h-16 mb-4" />
-    <h3 className="text-xl font-semibold mb-2">{title}</h3>
-    <p className="text-gray-600">{description}</p>
-  </div>
+      <img src={icon} alt={title} className="w-16 h-16 mb-4" />
+      <h3 className="text-xl font-semibold mb-2">{title}</h3>
+      <p className="text-gray-600">{description}</p>
+    </div>
 )
-
-
-
 
 export default function FeatureCards() {
   return (
@@ -34,8 +31,5 @@ export default function FeatureCards() {
         <FeatureCard key={index} {...feature} />
       ))}
     </div>
-
-
-   
   );
 }
