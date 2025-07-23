@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useState } from 'react';
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X, Plus } from "lucide-react";
@@ -50,19 +49,12 @@ export default function AddBudgetDialog({ onBudgetAdded }) {
       },
     ]);
 
-    console.log({ category, amount, userId });
-
-
     if (error) {
-      console.log("Error adding budget:", error.message);
       alert("Failed to add budget. Try again.");
       return;
     }
 
-    console.log("Budget Added:", { category, amount });
-
     onBudgetAdded?.();
-
 
     // Reset fields and close dialog
     setCategory('');
@@ -74,7 +66,7 @@ export default function AddBudgetDialog({ onBudgetAdded }) {
     <DialogPrimitive.Root open={open} onOpenChange={setOpen}>
       {/* Trigger Button */}
       <DialogPrimitive.Trigger asChild>
-        <button className="flex items-center px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition m-5">
+        <button className="flex items-center px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition mx-2 my-3 sm:my-4 sm:mx-5">
           <Plus className="w-4 h-4 mr-2" />Add Budget
         </button>
       </DialogPrimitive.Trigger>
@@ -82,7 +74,7 @@ export default function AddBudgetDialog({ onBudgetAdded }) {
       {/* Modal Content */}
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay className="fixed inset-0 bg-black/50 z-40" />
-        <DialogPrimitive.Content className="fixed left-1/2 top-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white p-6 shadow-lg focus:outline-none">
+        <DialogPrimitive.Content className="fixed left-1/2 top-1/2 z-50 w-[90%] sm:w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white p-4 sm:p-6 shadow-lg focus:outline-none">
           
           {/* Close Icon */}
           <DialogPrimitive.Close asChild>
@@ -124,7 +116,7 @@ export default function AddBudgetDialog({ onBudgetAdded }) {
             </div>
 
             {/* Buttons */}
-            <div className="flex justify-end gap-2 pt-4">
+            <div className="flex flex-col-reverse sm:flex-row justify-end gap-2 pt-4">
               <DialogPrimitive.Close asChild>
                 <button
                   type="button"

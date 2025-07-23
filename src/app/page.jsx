@@ -1,68 +1,97 @@
-"use client"
+"use client";
 import Link from "next/link.js";
 import FeatureCards from "./Components/Feature.jsx";
 import Footer from "./Components/Footer.jsx";
 import Header from "./Components/Header.jsx";
-import {useSession} from "@supabase/auth-helpers-react"
+import { useSession } from "@supabase/auth-helpers-react";
 
 export default function Home() {
-  const session = useSession()
+  const session = useSession();
+
   return (
-   <div className="flex items-center flex-col">
-    <div className="w-full h-[900px] bg-gradient-to-t from-teal-100 via-white to-teal-100 rounded-b-[150px]">
-      <Header/>
+    <div className="w-full">
+      {/* Hero Section */}
+      <div className="w-full min-h-screen bg-gradient-to-t from-teal-100 via-white to-teal-100 rounded-b-[80px] md:rounded-b-[150px]">
+        {/* Header stays full-width, content corner-aligned */}
+        <Header />
 
-      <div className="flex flex-col items-center">
-        <img src="Main Logo.svg" alt="illustration" width={750} className="my-[50px] "/>
-           {/* Get Started and features button */}
-      {session ? 
-      ( <Link href="#features" className="font-semibold underline text-md transition-transform duration-300 hover:scale-[1.05]">
-                    Check out the features</Link>
-      ) :
-       (<div className="flex flex-col md:flex-row items-center justify-center gap-4">
+        {/* Hero Content below header */}
+        <div className="flex flex-col items-center justify-center text-center h-full px-4 sm:px-6 lg:px-12 mt-8 sm:mt-12 mb-10 sm:mb-12 md:mb-20">
+          <img
+            src="Main Logo.svg"
+            alt="illustration"
+            className="w-full max-w-[450px] sm:max-w-[600px] md:max-w-[750px] my-8"
+          />
 
-          <Link href="/SignUp" className="text-white shadow font-semibold w-[140px] h-[50px] bg-[#0D9488] rounded-[10px]  text-sm flex items-center justify-center transition-transform duration-300 hover:scale-[1.05] hover:shadow-lg">Get Started</Link>
+          {session ? (
+            <Link
+              href="#features"
+              className="font-semibold underline text-md transition-transform duration-300 hover:scale-[1.05] mt-4 mb-12 sm:mb-20"
+           >
+              Check out the features
+            </Link>
+          ) : (
+            <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+              <Link
+                href="/SignUp"
+                className="text-white shadow font-semibold w-[140px] h-[50px] bg-[#0D9488] rounded-[10px] text-sm flex items-center justify-center transition-transform duration-300 hover:scale-[1.05] hover:shadow-lg"
+              >
+                Get Started
+              </Link>
 
-          <Link href="#features" className="font-semibold underline text-md transition-transform duration-300 hover:scale-[1.05]">
-          Check out the features</Link>
-
+              <Link
+                href="#features"
+                className="font-semibold underline text-md transition-transform duration-300 hover:scale-[1.05]"
+              >
+                Check out the features
+              </Link>
+            </div>
+          )}
         </div>
-      )}
       </div>
-    </div>
 
-    <h1 className="my-[80.5px] text-[50px] text-center px-[200px] font-semibold">Plan smarter. Spend wiser. Join <span className="text-[#0D9488]">thousands</span> already budgeting better.</h1>
-    
-    {/*Feature Section */}
-    <div className="bg-gradient-to-br from-teal-100 via-white to-blue-100 w-full h-[700px] flex items-center flex-col">
-       <h1 className="text-4xl md:text-6xl font-bold  mt-20 mb-6 text-transparent bg-clip-text bg-gradient-to-l from-blue-600 to-teal-600">
-         Powerful Features for Financial Success
+      {/* Tagline Section */}
+      <h1 className="my-16 text-3xl sm:text-4xl md:text-5xl text-center px-4 sm:px-12 font-semibold leading-snug">
+        Plan smarter. Spend wiser. Join{" "}
+        <span className="text-[#0D9488]">thousands</span> already budgeting
+        better.
+      </h1>
+
+      {/* Feature Section */}
+      <div className="bg-gradient-to-br from-teal-100 via-white to-blue-100 w-full py-16 px-4 sm:px-6 md:px-12 flex flex-col items-center">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-l from-blue-600 to-teal-600 text-center">
+          Powerful Features for Financial Success
         </h1>
-      <p className="text-gray-600 font-semibold text-[16px] my-[30px]">Everything you need to visualize, analyze, and optimize your financial data with complete privacy and security.</p>
+        <p className="text-gray-600 font-semibold text-base sm:text-lg text-center max-w-2xl mb-12">
+          Everything you need to visualize, analyze, and optimize your financial
+          data with complete privacy and security.
+        </p>
 
-      <div className="my-12" id="features">
-        <FeatureCards />
+        <div id="features">
+          <FeatureCards />
+        </div>
       </div>
-    </div>
 
-       <section className="py-15 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-600 to-teal-600 w-full">
+      {/* CTA Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-600 to-teal-600 w-full">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-white mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-6">
             Ready to Take Control of Your Finances?
           </h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto font-medium">
-            Join thousands of users who have transformed their financial lives with BudgetEase.
+          <p className="text-base sm:text-lg md:text-xl text-blue-100 mb-8 font-medium">
+            Join thousands of users who have transformed their financial lives
+            with BudgetEase.
           </p>
-          <Link href={session ? '/dashboard' : '/SignUp'}>
-          <button  className="bg-white text-black hover:bg-gray-200 p-2 rounded-[10px] font-semibold">
-           {session ? 'Go to Dashboard' : 'Start Your Journey'}
-          </button>
+          <Link href={session ? "/dashboard" : "/SignUp"}>
+            <button className="bg-white text-black hover:bg-gray-200 px-6 py-3 rounded-[10px] font-semibold transition">
+              {session ? "Go to Dashboard" : "Start Your Journey"}
+            </button>
           </Link>
         </div>
       </section>
 
-    {/* footer Section */}
-    <Footer/>
-   </div>
+      {/* Footer */}
+      <Footer />
+    </div>
   );
 }

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Input from "../uiElements/input";
 import Label from "../uiElements/label";
 import Select from "../uiElements/Select";
@@ -20,96 +20,103 @@ const categoryOptions = [
   { name: "Other", icon: "📋" },
 ];
 
-export default function ExpenseDialogBody({ onSuccess,closeDialog }) {
+export default function ExpenseDialogBody({ onSuccess, closeDialog }) {
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
-  const [category,setCategory] = useState("")
-  const session = useSession()
-
+  const [category, setCategory] = useState("");
+  const session = useSession();
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     const userId = session?.user?.id;
 
-
     if (!category || !amount) {
-    alert("Please fill in all required fields.");
-    return;
+      alert("Please fill in all required fields.");
+      return;
     }
 
-    const { data,error } = await supabase.from("expense").insert([
-    {
-      category_name: category,
-      amount: parseFloat(amount),
-      description: description,
-      user_id: userId,
-    },]);
+    const { data, error } = await supabase.from("expense").insert([
+      {
+        category_name: category,
+        amount: parseFloat(amount),
+        description: description,
+        user_id: userId,
+      },
+    ]);
 
     if (error) {
-    console.log("Failed to add expense:", error.message);
-    alert("Failed to add expense. Try again.");
-    } 
-    else {
-    console.log("Expense added!");
-    onSuccess?.();
-    closeDialog?.() //refreshes totals
+      console.log("Failed to add expense:", error.message);
+      alert("Failed to add expense. Try again.");
+    } else {
+      console.log("Expense added!");
+      onSuccess?.();
+      closeDialog?.();
     }
 
-    setCategory('');
-    setAmount('');
-    setDescription('');
-  
-  }
- 
+    setCategory("");
+    setAmount("");
+    setDescription("");
+  };
 
   return (
-    <form className="space-y-4" onSubmit={handleSubmit}>
-      <div>
+    <form className="space-y-4 text-sm sm:text-base" onSubmit={handleSubmit}>
+      {/* Category */}
+      <div className="flex flex-col">
         <Label htmlFor="category">Category</Label>
         <Select
-          className="border-gray-300"
           id="category"
+          className="border border-gray-300 rounded-md mt-1 text-sm sm:text-base"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
           options={categoryOptions}
         />
       </div>
 
-      <div>
+      {/* Amount */}
+      <div className="flex flex-col">
         <Label htmlFor="amount">Amount</Label>
-        <Input className="bg-gray-100 border-gray-100" type="number" id="amount" placeholder="0.00"  value={amount} onChange={(e) => setAmount(e.target.value)}/>
+        <Input
+          type="number"
+          id="amount"
+          placeholder="0.00"
+          className="mt-1 bg-gray-100 border border-gray-300 rounded-md"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+        />
       </div>
 
-      <div>
+      {/* Description */}
+      <div className="flex flex-col">
         <Label htmlFor="description">Description</Label>
         <textarea
           id="description"
           placeholder="What was this expense for?"
-          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-100 border-gray-100"
+          className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
           rows={3}
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
       </div>
 
-    <div className="flex justify-end gap-2 pt-4">
-      <DialogPrimitive.Close asChild>
-        <button
-          type="button"
-          className="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-100 transition"
-        >
-          Cancel
-        </button>
-      </DialogPrimitive.Close>
+      {/* Buttons */}
+      <div className="flex flex-col-reverse sm:flex-row justify-end gap-2 pt-4">
+        <DialogPrimitive.Close asChild>
+          <button
+            type="button"
+            className="w-full sm:w-auto px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-100 transition"
+          >
+            Cancel
+          </button>
+        </DialogPrimitive.Close>
 
-      <button
-        type="submit"
-        className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
-      >
-        Add Expense
-      </button>
-    </div>
-  </form>
+        <button
+          type="submit"
+          className="w-full sm:w-auto px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
+        >
+          Add Expense
+        </button>
+      </div>
+    </form>
   );
 }

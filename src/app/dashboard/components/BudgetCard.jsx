@@ -5,22 +5,24 @@ export default function BudgetCard({ category, budget, spent, icon }) {
   const isOver = remaining < 0;
 
   return (
-    <div className="relative bg-white rounded-lg p-6 shadow-md group transition-all duration-300 hover:shadow-xl hover:scale-[1.01]">
+    <div className="relative bg-white rounded-xl p-4 sm:p-5 md:p-6 shadow-md group transition-all duration-300 hover:shadow-xl hover:scale-[1.01] w-full">
       {/* Header */}
-      <div className="flex items-center justify-between h-[60px]">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <div className="flex items-center gap-2">
-          <span className="text-2xl">{icon}</span>
-          <h3 className="text-lg font-semibold">{category}</h3>
+          <span className="text-xl sm:text-2xl">{icon}</span>
+          <h3 className="text-base sm:text-lg font-semibold">{category}</h3>
         </div>
       </div>
 
       {/* Body */}
-      <div className="flex flex-col gap-2 mt-4">
-        <div className="flex justify-between text-sm">
-          <span>Spent</span>
-          <span>₹{spent.toFixed(2)}</span>
+      <div className="flex flex-col gap-3 mt-4 text-sm sm:text-base">
+        {/* Spent row */}
+        <div className="flex justify-between">
+          <span className="text-gray-600">Spent</span>
+          <span className="font-medium">₹{spent.toFixed(2)}</span>
         </div>
 
+        {/* Progress bar */}
         <div className="w-full h-2 bg-gray-200 rounded overflow-hidden">
           <div
             className={`h-full transition-all duration-300 ${isOver ? 'bg-red-500' : 'bg-gray-800'}`}
@@ -28,8 +30,9 @@ export default function BudgetCard({ category, budget, spent, icon }) {
           />
         </div>
 
-        <div className="flex justify-between text-sm">
-          <span>Budget: ₹{budget.toFixed(2)}</span>
+        {/* Budget + Remaining */}
+        <div className="flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-0">
+          <span className="text-gray-600">Budget: ₹{budget.toFixed(2)}</span>
           <span className={isOver ? 'text-red-600 font-semibold' : 'text-green-600 font-semibold'}>
             {isOver
               ? `Over: ₹${Math.abs(remaining).toFixed(2)}`

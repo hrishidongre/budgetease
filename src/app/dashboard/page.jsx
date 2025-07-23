@@ -191,26 +191,32 @@ const handleResetData = async () => {
               Your
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-600"> Finances, Organized.</span>
             </h1>
-            <div className="flex gap-3">
-              <AddBudgetDialog  onBudgetAdded={() => {
-                fetchTotals();
-                fetchChartData();
-              }}/>
-              <AddExpenseDialog onExpenseAdded={() => {
-                fetchTotals();
-                fetchChartData();
-                fetchRecentTransactions();
-              }}/>
-             <button
-              onClick={handleResetData}
-              className="flex items-center px-4 py-2 bg-red-600 text-white font-medium rounded-md hover:bg-red-700 transition m-5"
-             >
-             <RotateCcw className="w-4 h-4 mr-2" />
-                Reset Budget
-             </button>
-             
+           <div className="w-full flex justify-center sm:justify-start">
+              <div className="flex flex-col sm:flex-row items-center gap-3">
+                <AddBudgetDialog
+                  onBudgetAdded={() => {
+                    fetchTotals();
+                    fetchChartData();
+                  }}
+                />
+                <AddExpenseDialog
+                  onExpenseAdded={() => {
+                    fetchTotals();
+                    fetchChartData();
+                    fetchRecentTransactions();
+                  }}
+                />
+                <button
+                  onClick={handleResetData}
+                  className="flex items-center px-4 py-2 bg-red-600 text-white font-medium rounded-md hover:bg-red-700 transition"
+                >
+                  <RotateCcw className="w-4 h-4 mr-2" />
+                  Reset Budget
+                </button>
+              </div>
             </div>
           </div>
+          {/* Recent Transactions */}
           <div className="w-full md:w-[300px]">
             <RecentTransaction transactions={recentTransactions} />
           </div>
@@ -252,8 +258,8 @@ const handleResetData = async () => {
       </div>
 
       {/* Budgets & Chart */}
-      <div className="flex px-6 py-4 gap-6 ml-5">
-        <div className="flex flex-col gap-5 w-1/3">
+      <div className="flex flex-col lg:flex-row gap-6 px-4 sm:px-6 py-6">
+        <div className="w-full lg:w-1/3 flex flex-col gap-5">
           {chartData.map((item) => (
             <BudgetCard
               key={item.name}
@@ -264,7 +270,7 @@ const handleResetData = async () => {
             />
           ))}
         </div>
-        <div className="w-2/3">
+        <div className="w-full lg:w-2/3">
           <Charts data={chartData} />
         </div>
       </div>

@@ -1,4 +1,4 @@
-'use client'
+"use client"
 import React, { useRef, useEffect, useState } from 'react'
 import { supabase } from '../supabase'
 import { useRouter } from 'next/navigation'
@@ -37,9 +37,11 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-[#EFFFFE] flex items-center justify-center px-4">
-      <div className="w-full max-w-md bg-white rounded-xl shadow-2xl p-6 sm:p-8">
-        <h1 className="text-2xl font-bold text-center mb-1">Welcome <span className='text-[#0D9488]'>Back</span></h1>
+    <div className="min-h-screen bg-[#EFFFFE] flex items-center justify-center px-4 sm:px-6">
+      <div className="w-full max-w-sm sm:max-w-md md:max-w-lg bg-white rounded-2xl shadow-xl p-6 sm:p-8 md:p-10 transition-all">
+        <h1 className="text-2xl sm:text-3xl font-bold text-center mb-1">
+          Welcome <span className='text-[#0D9488]'>Back</span>
+        </h1>
         <p className="text-center text-sm text-gray-500 mb-6">
           Enter your credentials to access your account
         </p>
@@ -50,7 +52,7 @@ export default function Login() {
             <label htmlFor="email" className="block mb-1 text-sm font-medium text-gray-800">
               Email
             </label>
-            <div className="flex items-center border rounded-md px-3 py-2 bg-gray-100 border-gray-100">
+            <div className="flex items-center border rounded-md px-3 py-2 bg-gray-100 border-white">
               <Mail className="h-4 w-4 text-gray-400 mr-2" />
               <input
                 type="email"
@@ -58,6 +60,7 @@ export default function Login() {
                 ref={emailRef}
                 placeholder="Enter your email"
                 className="w-full text-sm outline-none bg-transparent"
+                required
               />
             </div>
           </div>
@@ -67,7 +70,7 @@ export default function Login() {
             <label htmlFor="password" className="block mb-1 text-sm font-medium text-gray-800">
               Password
             </label>
-            <div className="flex items-center border rounded-md px-3 py-2 bg-gray-100 border-gray-100">
+            <div className="flex items-center border rounded-md px-3 py-2 bg-gray-100 border-white">
               <Lock className="h-4 w-4 text-gray-400 mr-2" />
               <input
                 type={showPassword ? 'text' : 'password'}
@@ -75,6 +78,7 @@ export default function Login() {
                 ref={passwordRef}
                 placeholder="Enter your password"
                 className="w-full text-sm outline-none bg-transparent"
+                required
               />
               <button
                 type="button"
@@ -90,11 +94,10 @@ export default function Login() {
             </div>
           </div>
 
-
           {/* Sign In Button */}
           <button
             type="submit"
-            className="bg-[#0D9488] text-white py-2 rounded-md font-semibold hover:bg-[#096B68] transition duration-400"
+            className="bg-[#0D9488] text-white py-2 rounded-md font-semibold hover:bg-[#096B68] transition duration-300"
           >
             Sign In
           </button>
