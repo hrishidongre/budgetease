@@ -1,12 +1,11 @@
-"use client";
-import React from "react";
-
+"use client"
+import React from "react"
 export default function Footer() {
   return (
     <footer className="w-full bg-black text-white pt-8 pb-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 text-center md:text-left">
         
-        {/* Logo & Copyright */}
+        {/* Logo */}
         <div>
           <img
             src="logo/footer_logo.svg"

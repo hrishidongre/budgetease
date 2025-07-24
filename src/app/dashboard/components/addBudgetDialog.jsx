@@ -41,7 +41,7 @@ export default function AddBudgetDialog({ onBudgetAdded }) {
       return;
     }
 
-    const { data, error } = await supabase.from("budget").insert([
+    const {  error } = await supabase.from("budget").insert([
       {
         category_name: category,
         amount: parseFloat(amount),
@@ -63,6 +63,8 @@ export default function AddBudgetDialog({ onBudgetAdded }) {
   };
 
   return (
+    //DialogPrimitve is a object containing the all the dialog components such as trigger
+    //wraps the whole dialog component and controls the open and close states
     <DialogPrimitive.Root open={open} onOpenChange={setOpen}>
       {/* Trigger Button */}
       <DialogPrimitive.Trigger asChild>

@@ -20,7 +20,7 @@ export default function About() {
             Empowering Your
             <span className="block sm:inline text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-600"> Financial Journey</span>
           </h1>
-          <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">//gives line between the text
             We believe everyone deserves financial peace of mind. Our mission is to make budgeting simple,
             insightful, and accessible to people from all walks of life.
           </p>

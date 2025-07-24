@@ -46,10 +46,8 @@ export default function ExpenseDialogBody({ onSuccess, closeDialog }) {
     ]);
 
     if (error) {
-      console.log("Failed to add expense:", error.message);
       alert("Failed to add expense. Try again.");
     } else {
-      console.log("Expense added!");
       onSuccess?.();
       closeDialog?.();
     }

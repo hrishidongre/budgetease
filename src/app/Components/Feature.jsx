@@ -1,3 +1,4 @@
+// feaure component
 const features = [
     {
       icon: "/icons/Graph_icon.svg",

@@ -4,7 +4,7 @@ export default function BudgetCard({ category, budget, spent, icon }) {
   const remaining = budget - spent;
   const isOver = remaining < 0;
 
-  return (
+  return (          //to take reference from the parent component
     <div className="relative bg-white rounded-xl p-4 sm:p-5 md:p-6 shadow-md group transition-all duration-300 hover:shadow-xl hover:scale-[1.01] w-full">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">

@@ -1,5 +1,4 @@
-'use client';
-
+'use client'
 import DHeader from './components/dashHeader'
 import AddBudgetDialog from "./components/addBudgetDialog"
 import AddExpenseDialog from './components/addExpenseDlalog'
@@ -8,8 +7,8 @@ import BudgetCard from './components/BudgetCard'
 import Charts from './components/charts'
 import RecentTransaction from './components/recentTransaction'
 import { Wallet, TrendingUp, TrendingDown,RotateCcw } from 'lucide-react'
-import { useEffect, useState } from "react";
-import { supabase } from "@/app/supabase";
+import { useEffect, useState } from "react"
+import { supabase } from "@/app/supabase"
 import { useSession } from "@supabase/auth-helpers-react"
 
 export default function Page() {
@@ -66,7 +65,6 @@ export default function Page() {
       .eq("user_id", userId);
 
     if (budgetError || expenseError) {
-      console.log("Error fetching chart data", budgetError || expenseError);
       return;
     }
 
@@ -132,7 +130,8 @@ export default function Page() {
     category: tx.category_name,
     amount: parseFloat(tx.amount),
     date: new Date(tx.created_at).toISOString().split("T")[0],
-  }));
+  })
+  );
 
   setRecentTransactions(formatted);
 };
@@ -183,7 +182,7 @@ const handleResetData = async () => {
     <div className="min-h-screen bg-blue-50">
       <DHeader />
 
-      {/* Header Title + Buttons */}
+      {/* Header Title and Buttons */}
       <div className="max-w-6xl mx-auto px-4 pt-6">
         <div className="flex flex-col md:flex-row justify-between gap-6 mb-8">
           <div className="flex-1">

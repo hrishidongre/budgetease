@@ -1,10 +1,5 @@
 import { useState } from 'react';
-import {
-  PieChart, Pie, Cell,
-  BarChart, Bar, XAxis, YAxis,
-  Tooltip, ResponsiveContainer, LabelList,
-  Legend
-} from 'recharts';
+import {PieChart, Pie, Cell,BarChart, Bar, XAxis, YAxis,Tooltip, ResponsiveContainer,Legend} from 'recharts';
 
 export default function Charts({ data }) {
   const [activeTab, setActiveTab] = useState('bar');

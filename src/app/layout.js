@@ -1,3 +1,4 @@
+//it is the main layout that every page in next page npm
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 

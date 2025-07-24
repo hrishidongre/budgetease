@@ -4,22 +4,20 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import ExpenseDialogBody from "./addExpenseForm";
 import { useState } from "react";
 
-export default function AddExpenseDialog({ trigger, onExpenseAdded }) {
+export default function AddExpenseDialog({onExpenseAdded }) {
   const [open, setOpen] = useState(false);
 
   return (
     <DialogPrimitive.Root open={open} onOpenChange={setOpen}>
       {/* Trigger Button */}
       <DialogPrimitive.Trigger asChild>
-        {trigger ? trigger : (
           <button className="flex items-center px-4 py-2 bg-green-600 text-white font-medium rounded-md hover:bg-green-700 transition mx-2 my-3 sm:mx-5 sm:my-4">
             <Plus className="w-4 h-4 mr-2" />
             Add Expense
           </button>
-        )}
       </DialogPrimitive.Trigger>
 
-      {/* Modal */}
+      {/* dialog Modal */}
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay className="fixed inset-0 bg-black/50 z-40" />
         <DialogPrimitive.Content
@@ -37,7 +35,7 @@ export default function AddExpenseDialog({ trigger, onExpenseAdded }) {
             Add Expense
           </DialogPrimitive.Title>
 
-          {/* Body/Form */}
+          {/* Form */}
           <ExpenseDialogBody
             onSuccess={onExpenseAdded}
             closeDialog={() => setOpen(false)}

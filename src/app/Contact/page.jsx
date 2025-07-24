@@ -20,16 +20,15 @@ export default function Contact() {
     setLoading(true);
 
     const { name, email, message } = formData;
+    //sends the data to the Contact table
     const { data, error } = await supabase.from("contact_messages").insert([
       {
-        Users_id: user?.id || null,
+        Users_id: user?.id || null,//optional chaining operator checks safely about the user if does not exist give null
         name,
         email,
         message,
       },
     ]);
-
-    console.log("🟢 Supabase insert result:", { data, error });
     setLoading(false);
 
     if (error) {
