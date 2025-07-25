@@ -181,7 +181,6 @@ const handleResetData = async () => {
   return (
     <div className="min-h-screen bg-blue-50">
       <DHeader />
-
       {/* Header Title and Buttons */}
       <div className="max-w-6xl mx-auto px-4 pt-6">
         <div className="flex flex-col md:flex-row justify-between gap-6 mb-8">
@@ -255,7 +254,6 @@ const handleResetData = async () => {
           />
         </div>
       </div>
-
       {/* Budgets & Chart */}
       <div className="flex flex-col lg:flex-row gap-6 px-4 sm:px-6 py-6">
         <div className="w-full lg:w-1/3 flex flex-col gap-5">
