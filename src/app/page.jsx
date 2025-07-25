@@ -12,7 +12,7 @@ export default function Home() {
     <div className="w-full">
       {/* Hero Section */}
       <div className="w-full min-h-screen bg-gradient-to-t from-teal-100 via-white to-teal-100 rounded-b-[80px] md:rounded-b-[150px]">
-        {/* Header stays full-width, content corner-aligned */}
+        {/* Header  */}
         <Header />
 
         {/* Hero Content below header */}
@@ -72,7 +72,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* CTA Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-600 to-teal-600 w-full">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-6">
